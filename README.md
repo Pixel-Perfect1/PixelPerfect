@@ -6,7 +6,7 @@ Picture Social is a social media platform that allows users to share and discove
 
 ## ERD
 
-![ERD](./main_app/images/erd.png)
+![ERD](./main_app/static/images/erd.png)
 
 ## Technologies Used
 
