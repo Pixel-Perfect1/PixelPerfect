@@ -14,6 +14,7 @@ Python - Functionality <br>
 Django - Framework <br>
 PostgreSQL - Database <br>
 Materialize - Front-end framework
+InkScape - Logo
 
 ## Pseudocode
 
