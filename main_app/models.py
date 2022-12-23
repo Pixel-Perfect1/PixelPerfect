@@ -13,8 +13,7 @@ class Post(models.Model):
     caption = models.CharField(max_length=600)
     likes = models.ManyToManyField(Like, related_name='posts')
     comments = models.ManyToManyField(Comment, related_name='posts')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
 
 
-
-# Create your models here.
 
