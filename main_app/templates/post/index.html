@@ -3,16 +3,14 @@
 {% for post in posts %}
 <div class="card">
   <!-- add this single line below -->
-  <p>
-    {{post.user.profile.username}}
-    <a href="/posts/{{ post.id }}">
-      <div class="card-content">
-        <img class="responsive-img card-panel" src="{{post.photo.url}}" />
-        <span class="card-title">{{ post.caption }}</span>
-      </div>
-      <!-- and this following one as well -->
-    </a>
-  </p>
+  <p>{{post.user.profile.username}}</p>
+  <a href="/posts/{{ post.id }}">
+    <div class="card-content">
+      <img class="responsive-img card-panel" src="{{post.photo.url}}" />
+      <span class="card-title">{{ post.caption }}</span>
+    </div>
+    <!-- and this following one as well -->
+  </a>
 </div>
 
 {%endfor%}{% endblock %}
