@@ -35,6 +35,9 @@ class Post(models.Model):
     like = models.ManyToManyField(Like, related_name='posts')
     comments = models.ManyToManyField(Comment, related_name='posts')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    
+    def get_absolute_url(self): 
+        return reverse('post_index')
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
