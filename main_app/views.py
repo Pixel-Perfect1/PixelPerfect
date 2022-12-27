@@ -11,7 +11,7 @@ import os
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html')
+  return redirect('post_index')
 
 def about(request):
   return render(request, 'about.html')
@@ -58,7 +58,7 @@ def add_photo(request, post_id):
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('detail', post_id=post_id)
+    return redirect('post_detail', post_id=post_id)
 
 def post_index(request):
   posts = Post.objects.all()
