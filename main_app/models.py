@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+import datetime
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
@@ -35,9 +36,18 @@ class Post(models.Model):
     like = models.ManyToManyField(Like, related_name='posts')
     comments = models.ManyToManyField(Comment, related_name='posts')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    # date = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return f"{str(self.date)}"
+
     def get_absolute_url(self): 
         return reverse('post_index')
+    
+    # class Meta:
+    #     ordering = ['-date']
+
+    
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
