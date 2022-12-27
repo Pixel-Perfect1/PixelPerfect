@@ -2,6 +2,7 @@
 
 <h1>Post Details</h1>
 
+{% comment %}
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ post.caption }}</span>
@@ -11,9 +12,24 @@
   <a href="{% url 'post_update' post.id %}">Edit</a>
   <a href="{% url 'post_delete' post.id %}">Delete</a>
 </div>
+{% endcomment %} {%if post.photo.url %}
+<div class="card">
+  <div class="card-content">
+    <img class="responsive-img card-panel" src="{{post.photo.url}}" />
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+</div>
 
-<img class="responsive-img card-panel" src="{{post.photo.url}}" />
-
+{%else%}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+</div>
+<div class="card-action">
+  <a href="{% url 'post_update' post.id %}">Edit</a>
+  <a href="{% url 'post_delete' post.id %}">Delete</a>
+</div>
 <form
   action="{% url 'add_photo' post.id %}"
   enctype="multipart/form-data"
@@ -26,5 +42,4 @@
   <br /><br />
   <input type="submit" class="btn" value="Upload Photo" />
 </form>
-
-{% endblock %}
+{%endif%} {% endblock %}
