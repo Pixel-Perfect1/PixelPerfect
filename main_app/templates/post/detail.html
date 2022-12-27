@@ -7,5 +7,9 @@
     <span class="card-title">{{ post.caption }}</span>
   </div>
 </div>
+<div class="card-action">
+  <a href="{% url 'post_update' post.id %}">Edit</a>
+  <a href="{% url 'post_delete' post.id %}">Delete</a>
+</div>
 
 {% endblock %}
