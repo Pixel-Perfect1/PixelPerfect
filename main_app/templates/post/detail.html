@@ -12,4 +12,19 @@
   <a href="{% url 'post_delete' post.id %}">Delete</a>
 </div>
 
+<img class="responsive-img card-panel" src="{{post.photo.url}}" />
+
+<form
+  action="{% url 'add_photo' post.id %}"
+  enctype="multipart/form-data"
+  method="POST"
+  alt="Post Photo"
+  class="card-panel"
+>
+  {% csrf_token %}
+  <input type="file" name="photo-file" />
+  <br /><br />
+  <input type="submit" class="btn" value="Upload Photo" />
+</form>
+
 {% endblock %}

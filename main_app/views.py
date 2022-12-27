@@ -58,7 +58,7 @@ def add_photo(request, post_id):
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('detail', post_id=post_id)
+    return redirect('post_detail', post_id=post_id)
 
 def post_index(request):
   posts = Post.objects.all()
