@@ -18,10 +18,14 @@
     <img class="responsive-img card-panel" src="{{post.photo.url}}" />
     <span class="card-title">{{ post.caption }}</span>
   </div>
+  {% if user.is_authenticated %} 
+  {% if user.id == post.user.id %}
   <div class="card-action">
     <a href="{% url 'post_update' post.id %}">Edit</a>
     <a href="{% url 'post_delete' post.id %}">Delete</a>
   </div>
+  {% endif %} 
+  {% endif %}
 </div>
 
 {%else%}
@@ -29,10 +33,14 @@
   <div class="card-content">
     <span class="card-title">{{ post.caption }}</span>
   </div>
+  {% if user.is_authenticated %} 
+  {% if user.id == post.user.id %}
   <div class="card-action">
     <a href="{% url 'post_update' post.id %}">Edit</a>
     <a href="{% url 'post_delete' post.id %}">Delete</a>
   </div>
+  {% endif %} 
+  {% endif %}
 </div>
 <form
   action="{% url 'add_photo' post.id %}"
