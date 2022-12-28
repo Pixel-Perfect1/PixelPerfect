@@ -41,7 +41,7 @@ class Post(models.Model):
         return f"{self.caption} {self.date}"
 
     def get_absolute_url(self): 
-        return reverse('post_index')
+        return reverse('post_detail', kwargs={'post_id': self.id})
     
     class Meta:
         ordering = ['-date']
