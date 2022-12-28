@@ -38,7 +38,6 @@ class create_profile(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-
 @login_required
 def add_photo(request, post_id):
     # photo-file will be the "name" attribute on the <input type="file">
