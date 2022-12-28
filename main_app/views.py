@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Profile, Photo, Post
+from .models import Profile, Photo, Post, Like
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 import uuid
@@ -81,3 +82,14 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
   model = Post
   success_url = '/posts/'
+
+def like_post(request, post_id):
+  post = Post.objects.get(id=post_id)
+  if not request.user.is_authenticated:
+    return redirect('login')
+  if request.user in post.likes.all():
+    post.likes.set(post.likes.exclude(id=request.user.id))
+  else:
+    post.likes.set(post.likes.all().union(User.objects.filter(id=request.user.id)))
+  return redirect('post_detail', post_id=post.id)
+
