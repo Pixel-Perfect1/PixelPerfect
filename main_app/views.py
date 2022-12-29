@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Profile, Photo, Post, Like
+from .models import Profile, Photo, Post, Like, Comment
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CommentForm
 import uuid
 import boto3
 import os
@@ -83,13 +85,33 @@ class PostDelete(DeleteView):
   model = Post
   success_url = '/posts/'
 
-def like_post(request, post_id):
-  post = Post.objects.get(id=post_id)
-  if not request.user.is_authenticated:
-    return redirect('login')
-  if request.user in post.likes.all():
-    post.likes.set(post.likes.exclude(id=request.user.id))
-  else:
-    post.likes.set(post.likes.all().union(User.objects.filter(id=request.user.id)))
-  return redirect('post_detail', post_id=post.id)
+# def like_post(request, post_id):
+#   post = Post.objects.get(id=post_id)
+#   if not request.user.is_authenticated:
+#     return redirect('login')
+#   if request.user in post.likes.all():
+#     post.likes.set(post.likes.exclude(id=request.user.id))
+#   else:
+#     post.likes.set(post.likes.all().union(User.objects.filter(id=request.user.id)))
+#   return redirect('post_detail', post_id=post.id)
 
+# class CommentPost(CreateView):
+#   model = Comment
+#   fields = ['content']
+#   def form_valid(self, form):
+#     form.instance.user = self.request.user
+#     return super().form_valid(form)
+
+
+#   class CommentDetail(DetailView):
+#     model = Comment
+
+# def add_comment(request, post_id):
+#   form = CommentForm(request.POST)
+#   if form.is_valid():
+#     new_comment = form.save(commit=False)
+#     new_comment.post_id = post_id
+#     new_comment.user_id = request.user.id
+#     new_comment.save()
+#   return redirect('post_detail', post_id=post_id)
+  

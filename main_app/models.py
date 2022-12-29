@@ -16,18 +16,8 @@ class Profile(models.Model):
     def get_absolute_url(self): 
         return reverse('home')
 
-
-class Comment(models.Model):
-    content = models.CharField(max_length=500)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-    
-    def __str__(self):
-        return f"{self.user_set.profile.username}: {self.content}"
-
-
 class Post(models.Model):
     caption = models.CharField(max_length=600)
-    comments = models.ManyToManyField(Comment, related_name='posts')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     date = models.DateTimeField(auto_now_add=True)
     
@@ -40,6 +30,21 @@ class Post(models.Model):
     class Meta:
         ordering = ['-date']
 
+
+class Comment(models.Model):
+    content = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.profile.username}: {self.content}"
+    
+    def get_absolute_url(self):
+        return reverse('comment_detail', kwargs={'pk': self.id})
+
+    class Meta:
+        ordering = ['-date']
     
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')

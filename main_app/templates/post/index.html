@@ -14,7 +14,12 @@
   <div class="card-action">
     <p>{{post.likes}}</p>
     <a href="">Like</a>
-    <a href="">Comment</a>
+    <a
+      href="
+    {% comment %} {% url 'add_comment' post.id%} {% endcomment %}
+    "
+      >Comment</a
+    >
   </div>
 </div>
 
