@@ -11,9 +11,11 @@
     </div>
     <!-- and this following one as well -->
   </a>
-  {% if user.is_authenticated %}
+  <p>likes:</p>
+  {% for like in post.likes.all%}
+  <p>{{like.user}}</p>
+  {%endfor%} {% if user.is_authenticated %}
   <div class="card-action">
-    <p>{{post.likes.first}}</p>
     <a href="{% url 'like_post' post.id%}">Like</a>
     <a href=" {% url 'add_comment' post.id%}">Comment</a>
   </div>
