@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
@@ -68,7 +68,8 @@ def post_index(request):
 
 def post_detail(request, post_id):
   post = Post.objects.get(id=post_id)
-  return render(request, 'post/detail.html', {'post': post})
+  comment_form = CommentForm()
+  return render(request, 'post/detail.html', {'post': post, 'comment_form':comment_form})
 
 class PostCreate(CreateView):
   model = Post
@@ -106,12 +107,19 @@ class PostDelete(DeleteView):
 #   class CommentDetail(DetailView):
 #     model = Comment
 
-# def add_comment(request, post_id):
-#   form = CommentForm(request.POST)
-#   if form.is_valid():
-#     new_comment = form.save(commit=False)
-#     new_comment.post_id = post_id
-#     new_comment.user_id = request.user.id
-#     new_comment.save()
-#   return redirect('post_detail', post_id=post_id)
+def add_comment(request, post_id):
+  post = get_object_or_404(Post, id=post_id)
+  form = CommentForm(request.POST)
+  print(f'🪲 {form}')
+  if form.is_valid():
+    if request.user.is_authenticated:
+      comment = form.save(commit=False)
+      comment.post = post
+      comment.user = request.user
+      comment.save()
+      return redirect('post_detail', post_id=post_id)
+    else:
+      # Redirect the user to the login page or display an error message
+      pass
+  return redirect('post_detail', post_id=post_id)
   
