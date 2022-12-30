@@ -11,16 +11,12 @@
     </div>
     <!-- and this following one as well -->
   </a>
+  {% if user.is_authenticated %}
   <div class="card-action">
-    <p>{{post.likes}}</p>
-    <a href="">Like</a>
-    <a
-      href="
-    {% url 'add_comment' post.id%}
-    "
-      >Comment</a
-    >
+    <p>{{post.likes.first}}</p>
+    <a href="{% url 'like_post' post.id%}">Like</a>
+    <a href=" {% url 'add_comment' post.id%}">Comment</a>
   </div>
+  {%endif%}
 </div>
-
 {%endfor%}{% endblock %}
