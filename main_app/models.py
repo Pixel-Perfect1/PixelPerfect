@@ -50,7 +50,7 @@ class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
     post = models.ManyToManyField(Post, related_name='likes')
     def __str__(self):
-        return f"{self.user.profile.username}"
+        return f"{self.user.profile.username}/{self.post}"
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)

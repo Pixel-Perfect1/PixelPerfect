@@ -86,15 +86,17 @@ class PostDelete(DeleteView):
   model = Post
   success_url = '/posts/'
 
-# def like_post(request, post_id):
-#   post = Post.objects.get(id=post_id)
-#   if not request.user.is_authenticated:
-#     return redirect('login')
-#   if request.user in post.likes.all():
-#     post.likes.set(post.likes.exclude(id=request.user.id))
-#   else:
-#     post.likes.set(post.likes.all().union(User.objects.filter(id=request.user.id)))
-#   return redirect('post_detail', post_id=post.id)
+def like_post(request, post_id):
+  post = get_object_or_404(Post, pk=post_id)
+  like, created = Like.objects.get_or_create(user=request.user)
+  if post in like.post.all():
+    like.post.remove(post)
+    print('🪲remove')
+  else:
+    like.post.add(post)
+    print('🪲add')
+  return redirect('post_index')
+
 
 # class CommentPost(CreateView):
 #   model = Comment
@@ -110,7 +112,6 @@ class PostDelete(DeleteView):
 def add_comment(request, post_id):
   post = get_object_or_404(Post, id=post_id)
   form = CommentForm(request.POST)
-  print(f'🪲 {form}')
   if form.is_valid():
     if request.user.is_authenticated:
       comment = form.save(commit=False)
@@ -122,4 +123,6 @@ def add_comment(request, post_id):
       # Redirect the user to the login page or display an error message
       pass
   return redirect('post_detail', post_id=post_id)
+
+
   
