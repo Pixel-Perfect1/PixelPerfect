@@ -131,17 +131,25 @@ def add_comment(request, post_id):
   return redirect('post_detail', post_id=post_id)
 
 def profile(request, user_id):
-  profile = Profile.objects.get(user=user_id)
-  print(f'🪲{profile.user.id}')
-  return render(request, 'profile/index.html', {'profile': profile})
+  user = request.user
+  profile = Profile.objects.get(id=user_id)
+  if Follow.objects.filter(follower = user, following = profile.user).exists():
+    button_text = 'Unfollow'
+  else:
+    button_text = 'Follow'
+
+  return render(request, 'profile/index.html', {'profile': profile, 'button_text':button_text})
 
 def follow(request, user_id):
     user = get_object_or_404(User, id=user_id)
     print(f'🪲{user}')
     if request.method == 'POST':
-        new_follow = Follow(follower=request.user, following=user)
-        print(f'👾{new_follow}')
-        new_follow.save()
+        follow_obj = Follow.objects.filter(follower=request.user, following=user)
+        if follow_obj.exists():
+            follow_obj.delete()
+        else:
+            new_follow = Follow(follower=request.user, following=user)
+            new_follow.save()
         return redirect('profile', user_id=user_id)
     return redirect('profile', user_id=user_id)
 

@@ -7,20 +7,13 @@
 <h5>Following: {{ profile.user.following.count }}</h5>
 
 <hr />
-{% if request.user not in profile.user.followers.all %}
 <div class="card-action">
-  <form method="post" action="{% url 'follow' profile.user.id %}">
+    <form method="post" action="{% url 'follow' profile.user.id %}">
     {% csrf_token %}
-    <button type="submit">Follow</button>
-  </form>
+    <button type="submit">{{button_text}}</button>
+    </form>
+  </div>
 </div>
-{%elif request.user in profile.user.followers.all%}
-<div class="card-action">
-  <form method="post" action="{% url 'follow' profile.user.id %}">
-    {% csrf_token %}
-    <button type="submit">Unfollow</button>
-  </form>
-</div>
-{%endif%}
+
 <p>Pictures will show up here</p>
 {% endblock %} 
