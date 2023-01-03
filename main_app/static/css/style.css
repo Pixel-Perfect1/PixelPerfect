@@ -51,3 +51,7 @@ main {
   overflow: hidden;
   margin: 0 auto;
 }
+
+.add {
+  width: 10vw;
+}

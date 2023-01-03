@@ -16,6 +16,10 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header class="navbar-fixed">
@@ -39,43 +43,49 @@
 
     <main class="container">{% block content %} {% endblock %}</main>
 
-    {% comment %}
-    <footer class="page-footer teal lighten-1 navbar-fixed">
-      <nav>
-        <div class="nav-wrapper teal lighten-1">
-          <ul>
-            <li><a href="{% url 'about' %}">About</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'post_index' %}">View All Posts</a></li>
-            <li><a href="{% url 'post_create' %}">Create Post</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-            <li><p>{{user.profile.username}}</p></li>
-            {% else %}
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            <li><a href="{% url 'login' %}">Log In</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-    </footer>
-    {% endcomment %}
     <div class="footer-fixed">
       <footer class="teal lighten-1">
         <nav class="z-depth-0">
           <div class="nav-wrapper teal lighten-1">
             <ul class="justify">
-              <li><a href="{% url 'about' %}">About</a></li>
-              {% if user.is_authenticated %}
-              <li><a href="{% url 'post_index' %}">View All Posts</a></li>
               <li>
-                <a href="{% url 'following_index'%}">View Following</a>
+                <a href="{% url 'about' %}"
+                  ><i class="material-icons">info</i></a
+                >
               </li>
-              <li><a href="{% url 'post_create' %}">Create Post</a></li>
-              <li><a href="{% url 'logout' %}">Log Out</a></li>
+              {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'post_index' %}"
+                  ><i class="material-icons">public</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'post_create' %}"
+                  ><i class="material-icons add">add_circle_outline</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'following_index'%}"
+                  ><i class="material-icons">people</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'logout' %}"
+                  ><i class="material-icons">logout</i></a
+                >
+              </li>
 
               {% else %}
-              <li><a href="{% url 'signup' %}">Sign Up</a></li>
-              <li><a href="{% url 'login' %}">Log In</a></li>
+              <li>
+                <a href="{% url 'login' %}"
+                  ><i class="material-icons add">login</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'signup' %}"
+                  ><i class="material-icons">person_add_alt</i></a
+                >
+              </li>
               {% endif %}
             </ul>
           </div>

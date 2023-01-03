@@ -144,12 +144,9 @@ def follow(request, user_id):
 def following_index(request):
     user = request.user
     followed_users = user.following.all()
-    print(f'🪲{followed_users}')
     followed_user_posts = []
     for followed_user in followed_users:
-      print(f'👑{followed_user.id}')
       posts = Post.objects.filter(user=followed_user.following_id).order_by('date')
-      print(f'⛑️{posts}')
       followed_user_posts.extend(posts)
     print(f'👾{followed_user_posts}')
     return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
