@@ -3,7 +3,7 @@
 {% for post in posts %}
 <div class="card">
   <!-- add this single line below -->
-  <p>{{post.user.profile.username}}</p>
+  <a href="{% url 'profile' post.user.id %}">{{post.user.profile.username}}</a>
   <a href="/posts/{{ post.id }}">
     <div class="card-content">
       <img class="responsive-img card-panel" src="{{post.photo.url}}" />
