@@ -3,7 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Profile, Photo, Post, Like, Comment
+from .models import Profile, Photo, Post, Like, Comment, Follow
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -123,6 +123,21 @@ def add_comment(request, post_id):
       # Redirect the user to the login page or display an error message
       pass
   return redirect('post_detail', post_id=post_id)
+
+def profile(request, user_id):
+  profile = Profile.objects.get(user=user_id)
+  print(f'🪲{profile.user.id}')
+  return render(request, 'profile/index.html', {'profile': profile})
+
+def follow(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    print(f'🪲{user}')
+    if request.method == 'POST':
+        new_follow = Follow(follower=request.user, following=user)
+        print(f'👾{new_follow}')
+        new_follow.save()
+        return redirect('profile', user_id=user_id)
+    return redirect('profile', user_id=user_id)
 
 
   

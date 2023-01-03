@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{profile}}</h1>
+<hr />
+<div class="card-action">
+  <form method="post" action="{% url 'follow' profile.user.id %}">
+    {% csrf_token %}
+    <button type="submit">Follow</button>
+  </form>
+</div>
+<p>Pictures will show up here</p>
+{% endblock %}

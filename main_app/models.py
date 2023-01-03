@@ -60,6 +60,10 @@ class Photo(models.Model):
         return f"Photo for post_id: {self.post_id} @{self.url}"
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
-    followed_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
-        
+    follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
+    def __str__(self):
+        return f"user{self.follower} followed user:{self.following}"
+
+    def get_absolute_url(self):
+        return reverse('home')
