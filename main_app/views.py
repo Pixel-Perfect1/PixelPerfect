@@ -21,6 +21,7 @@ def about(request):
 
 def logout_index(request):
   return render(request, 'registration/logout_index.html')
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -97,12 +98,6 @@ def like_post(request, post_id):
 def like_index(request, post_id):
   post = get_object_or_404(Post, pk=post_id)
   return render(request, 'post/like_index.html', {'post': post})
-# class CommentPost(CreateView):
-#   model = Comment
-#   fields = ['content']
-#   def form_valid(self, form):
-#     form.instance.user = self.request.user
-#     return super().form_valid(form)
 
 def comment_index(request, post_id):
   post = get_object_or_404(Post, pk=post_id)
@@ -120,7 +115,6 @@ def add_comment(request, post_id):
       comment.save()
       return redirect('comment_index', post_id=post_id)
     else:
-      # Redirect the user to the login page or display an error message
       pass
   return redirect('post_detail', post_id=post_id)
 
@@ -148,20 +142,15 @@ def follow(request, user_id):
     return redirect('profile', user_id=user_id)
 
 def following_index(request):
-    # Get the current user
     user = request.user
-    # Get the list of users that the current user is following
     followed_users = user.following.all()
-    print(f'🪲{user}')
+    print(f'🪲{followed_users}')
     followed_user_posts = []
-    # Get all the posts created by the followed users
     for followed_user in followed_users:
       print(f'👑{followed_user.id}')
-      posts = Post.objects.filter(user=followed_user.user.id)
+      posts = Post.objects.filter(user=followed_user.following_id).order_by('date')
       print(f'⛑️{posts}')
-        # Add the posts to the followed_user_posts list
       followed_user_posts.extend(posts)
     print(f'👾{followed_user_posts}')
-    # Render the template with the list of posts
     return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
   
