@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block content %}
+<form action="{% url 'add_comment' post.id %}" method="POST">
+  {% csrf_token %} {{ comment_form.as_p }}
+  <input type="submit" class="btn" value="Add Comment" />
+</form>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for comment in post.comments.all %}
+    <tr>
+      <td>{{comment.user}}</td>
+      <td>{{comment.content}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

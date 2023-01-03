@@ -107,6 +107,10 @@ def like_index(request, post_id):
 #     form.instance.user = self.request.user
 #     return super().form_valid(form)
 
+def comment_index(request, post_id):
+  post = get_object_or_404(Post, pk=post_id)
+  comment_form = CommentForm()
+  return render(request, 'post/comment_index.html', {'post': post, 'comment_form':comment_form})
 
 #   class CommentDetail(DetailView):
 #     model = Comment
@@ -120,7 +124,7 @@ def add_comment(request, post_id):
       comment.post = post
       comment.user = request.user
       comment.save()
-      return redirect('post_detail', post_id=post_id)
+      return redirect('comment_index', post_id=post_id)
     else:
       # Redirect the user to the login page or display an error message
       pass
