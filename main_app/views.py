@@ -147,5 +147,21 @@ def follow(request, user_id):
         return redirect('profile', user_id=user_id)
     return redirect('profile', user_id=user_id)
 
-
+def following_index(request):
+    # Get the current user
+    user = request.user
+    # Get the list of users that the current user is following
+    followed_users = user.following.all()
+    print(f'🪲{user}')
+    followed_user_posts = []
+    # Get all the posts created by the followed users
+    for followed_user in followed_users:
+      print(f'👑{followed_user.id}')
+      posts = Post.objects.filter(user=followed_user.user.id)
+      print(f'⛑️{posts}')
+        # Add the posts to the followed_user_posts list
+      followed_user_posts.extend(posts)
+    print(f'👾{followed_user_posts}')
+    # Render the template with the list of posts
+    return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
   
