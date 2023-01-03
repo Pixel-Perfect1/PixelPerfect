@@ -38,7 +38,7 @@
   </div>
   {% endif %} {% endif %}
 </div>
-{% if user.is_authenticated %}
+{% if user.is_authenticated %} {% if user.id == post.user.id %}
 <form
   action="{% url 'add_photo' post.id %}"
   enctype="multipart/form-data"
@@ -51,7 +51,7 @@
   <br /><br />
   <input type="submit" class="btn" value="Upload Photo" />
 </form>
-{%endif%}
+{%endif%} {% endif %}
 
 <form action="{% url 'add_comment' post.id %}" method="POST">
   {% csrf_token %} {{ comment_form.as_p }}
