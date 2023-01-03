@@ -1,8 +1,10 @@
 {% extends 'base.html' %} {% block content %}
+{% load static %}
+
 
 <h1>{{profile}}</h1>
-<h3>Followers: {{ profile.user.followers.count }}</h3>
-<h3>Following: {{ profile.user.following.count }}</h3>
+<h5>Followers: {{ profile.user.followers.count }}</h5>
+<h5>Following: {{ profile.user.following.count }}</h5>
 
 <hr />
 {% if request.user not in profile.user.followers.all %}
@@ -21,4 +23,4 @@
 </div>
 {%endif%}
 <p>Pictures will show up here</p>
-{% endblock %}
+{% endblock %} 
