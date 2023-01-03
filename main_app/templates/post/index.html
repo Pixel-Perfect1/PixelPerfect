@@ -19,8 +19,8 @@
     <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Like</a>
     {% endif %}
   </div>
+  {% if user.is_authenticated %}
   <div class="card-action">
-    {% if user.is_authenticated %}
     <a href="{% url 'like_post' post.id%}">Like</a>
     <a href=" {% url 'comment_index' post.id%}">Comment</a>
     <a href=" {% url 'post_detail' post.id%}">Details</a>
