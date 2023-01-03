@@ -3,7 +3,7 @@
 {% for post in posts %}
 <div class="card">
   <div class="card-action">
-    <a href="{% url 'profile' post.user.id %}"
+    <a href="{% url 'profile' post.user.profile.id %}"
       >{{post.user.profile.username}}</a
     >
   </div>
