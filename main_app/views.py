@@ -97,7 +97,9 @@ def like_post(request, post_id):
     print('🪲add')
   return redirect('post_index')
 
-
+def like_index(request, post_id):
+  post = get_object_or_404(Post, pk=post_id)
+  return render(request, 'post/like_index.html', {'post': post})
 # class CommentPost(CreateView):
 #   model = Comment
 #   fields = ['content']
