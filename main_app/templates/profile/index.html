@@ -1,12 +1,24 @@
 {% extends 'base.html' %} {% block content %}
 
 <h1>{{profile}}</h1>
+<h3>Followers: {{ profile.user.followers.count }}</h3>
+<h3>Following: {{ profile.user.following.count }}</h3>
+
 <hr />
+{% if request.user not in profile.user.followers.all %}
 <div class="card-action">
   <form method="post" action="{% url 'follow' profile.user.id %}">
     {% csrf_token %}
     <button type="submit">Follow</button>
   </form>
 </div>
+{%elif request.user in profile.user.followers.all%}
+<div class="card-action">
+  <form method="post" action="{% url 'follow' profile.user.id %}">
+    {% csrf_token %}
+    <button type="submit">Unfollow</button>
+  </form>
+</div>
+{%endif%}
 <p>Pictures will show up here</p>
 {% endblock %}

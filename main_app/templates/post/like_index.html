@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Likes</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for like in post.likes.all %}
+    <tr>
+      <td>{{like.user}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
