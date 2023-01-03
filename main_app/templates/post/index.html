@@ -7,12 +7,11 @@
       >{{post.user.profile.username}}</a
     >
   </div>
-  <a href="/posts/{{ post.id }}">
-    <div class="card-content">
-      <img class="responsive-img card-panel" src="{{post.photo.url}}" />
-      <span class="card-title">{{ post.caption }}</span>
-    </div>
-  </a>
+  <div class="card-content">
+    <img class="responsive-img card-panel" src="{{post.photo.url}}" />
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+
   <div class="card-action">
     {% if post.likes.count > 1 %}
     <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Likes</a>
@@ -24,6 +23,7 @@
     {% if user.is_authenticated %}
     <a href="{% url 'like_post' post.id%}">Like</a>
     <a href=" {% url 'add_comment' post.id%}">Comment</a>
+    <a href=" {% url 'post_detail' post.id%}">Details</a>
   </div>
   {%endif%}
 </div>
