@@ -63,7 +63,7 @@ class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
     def __str__(self):
-        return f"user{self.follower} followed user:{self.following}"
+        return f"follower: {self.follower} | following: {self.following}"
 
     def get_absolute_url(self):
         return reverse('home')
