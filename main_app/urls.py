@@ -19,4 +19,5 @@ urlpatterns = [
     path('posts/<int:post_id>/comment_index', views.comment_index, name='comment_index'),
     path('profile/<int:user_id>/', views.profile, name='profile'),
     path('follow/<int:user_id>/', views.follow, name='follow'),
+    path('posts/following/', views.following_index, name='following_index'),
 ]

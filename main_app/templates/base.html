@@ -67,6 +67,9 @@
               <li><a href="{% url 'about' %}">About</a></li>
               {% if user.is_authenticated %}
               <li><a href="{% url 'post_index' %}">View All Posts</a></li>
+              <li>
+                <a href="{% url 'following_index'%}">View Following</a>
+              </li>
               <li><a href="{% url 'post_create' %}">Create Post</a></li>
               <li><a href="{% url 'logout' %}">Log Out</a></li>
 
