@@ -58,4 +58,8 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for post_id: {self.post_id} @{self.url}"
+
+class Follow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
+    followed_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
         
