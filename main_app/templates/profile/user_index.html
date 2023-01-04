@@ -4,7 +4,9 @@
 <img class="responsive-img profile-pic" src="{{user.profile.avatar}}" />
 </div>
 <h1 class="center">{{user.profile}}</h1>
-
+{%if user.profile.bio%}
+<p class="center">{{user.profile.bio}}</p>
+{%endif%}
 <div class="card-action center">
   <a href="{% url 'followers_index' user.id %}">
     <h5>Followers: {{ user.followers.count }}</h5>
