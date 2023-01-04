@@ -55,3 +55,12 @@ main {
 .add {
   width: 10vw;
 }
+
+.profile-post {
+  display: inline-block;
+  max-width: 30%;
+  max-height: 30%;
+  align-items: center;
+  margin: 1%;
+  vertical-align: middle;
+}

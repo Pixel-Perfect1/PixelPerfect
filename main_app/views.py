@@ -67,6 +67,7 @@ def post_index(request):
 def post_detail(request, post_id):
   post = Post.objects.get(id=post_id)
   comment_form = CommentForm()
+
   return render(request, 'post/detail.html', {'post': post, 'comment_form':comment_form})
 
 class PostCreate(CreateView):
@@ -151,3 +152,8 @@ def following_index(request):
     print(f'👾{followed_user_posts}')
     return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
   
+def user_profile(request):
+  user = request.user
+  posts = Post.objects.filter(user=user)
+  print(f'👾{user}')
+  return render(request, 'profile/user_index.html', {'posts':posts})

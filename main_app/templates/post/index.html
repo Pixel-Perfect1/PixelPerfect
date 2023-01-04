@@ -15,15 +15,20 @@
   </div>
 
   <div class="card-action">
-    {% if post.likes.count > 1 %}
-    <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Likes</a>
-    {% else %}
+    {% if post.likes.count == 1 %}
     <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Like</a>
+    {% else %}
+    <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Likes</a>
     {% endif %}
   </div>
   {% if user.is_authenticated %}
   <div class="card-action">
+    {% if user not in post.likes.all %} {% comment %} {% if
+    post.likes.all|filter:user=user,post=post|exists %} {% endcomment %}
     <a href="{% url 'like_post' post.id%}">Like</a>
+    {%else%}
+    <a href="{% url 'like_post' post.id%}">Unlike</a>
+    {%endif%}
     <a href=" {% url 'comment_index' post.id%}">Comment</a>
     <a href=" {% url 'post_detail' post.id%}">Details</a>
   </div>
