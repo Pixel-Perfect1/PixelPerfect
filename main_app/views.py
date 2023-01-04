@@ -145,7 +145,7 @@ def follow(request, user_id):
         return redirect('profile', user_id=user_id)
     return redirect('profile', user_id=user_id)
 
-def following_index(request):
+def following_post_index(request):
     user = request.user
     followed_users = user.following.all()
     followed_user_posts = []
@@ -160,3 +160,14 @@ def user_profile(request):
   posts = Post.objects.filter(user=user)
   print(f'👾{user}')
   return render(request, 'profile/user_index.html', {'posts':posts})
+
+def following_index (request, user_id):
+  user = user_id
+  followings = Follow.objects.filter(follower=user)
+  print(f'🪲{followings}')
+  return render(request, 'profile/following_index.html', {'followings':followings})
+
+def followers_index (request, user_id):
+  user = user_id
+  followers = Follow.objects.filter(following=user)
+  return render(request, 'profile/followers_index.html', {'followers':followers})
