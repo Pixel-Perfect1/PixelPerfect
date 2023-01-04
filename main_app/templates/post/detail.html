@@ -12,10 +12,10 @@
   <a href="{% url 'post_update' post.id %}">Edit</a>
   <a href="{% url 'post_delete' post.id %}">Delete</a>
 </div>
-{% endcomment %} {%if post.photo.url %}
+{% endcomment %} {%if post.url %}
 <div class="card">
   <div class="card-content">
-    <img class="responsive-img card-panel" src="{{post.photo.url}}" />
+    <img class="responsive-img card-panel" src="{{post.url}}" />
     <span class="card-title">{{ post.caption }}</span>
   </div>
   {% if user.is_authenticated %} {% if user.id == post.user.id %}
@@ -38,8 +38,8 @@
   </div>
   {% endif %} {% endif %}
 </div>
-{% if user.is_authenticated %} {% if user.id == post.user.id %}
-<form
+{% comment %} {% if user.is_authenticated %} {% if user.id == post.user.id %} {% endcomment %}
+{% comment %} <form
   action="{% url 'add_photo' post.id %}"
   enctype="multipart/form-data"
   method="POST"
@@ -50,8 +50,8 @@
   <input type="file" name="photo-file" />
   <br /><br />
   <input type="submit" class="btn" value="Upload Photo" />
-</form>
-{%endif%} {% endif %}
+</form> {% endcomment %}
+{% comment %} {%endif%} {% endif %} {% endcomment %}
 
 <form action="{% url 'add_comment' post.id %}" method="POST">
   {% csrf_token %} {{ comment_form.as_p }}

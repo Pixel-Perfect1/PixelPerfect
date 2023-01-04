@@ -20,9 +20,10 @@ class Post(models.Model):
     caption = models.CharField(max_length=600)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     date = models.DateTimeField(auto_now_add=True)
+    url = models.CharField(max_length=200)
     
     def __str__(self):
-        return f"{self.caption} {self.date}"
+        return f"{self.caption} {self.date} {self.url}"
 
     def get_absolute_url(self): 
         return reverse('post_detail', kwargs={'post_id': self.id})
@@ -52,12 +53,12 @@ class Like(models.Model):
     def __str__(self):
         return f"{self.user.profile.username}/{self.post}"
 
-class Photo(models.Model):
-    url = models.CharField(max_length=200)
-    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='photo')
+# class Photo(models.Model):
+#     url = models.CharField(max_length=200)
+#     post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='photo')
 
-    def __str__(self):
-        return f"Photo for post_id: {self.post_id} @{self.url}"
+    # def __str__(self):
+    #     return f"Photo for post_id: {self.post_id} @{self.url}"
 
 class Follow(models.Model):
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')

@@ -3,11 +3,11 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Profile, Photo, Post, Like, Comment, Follow
+from .models import Profile, Post, Like, Comment, Follow
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 import uuid
 import boto3
 import os
@@ -45,20 +45,37 @@ class create_profile(LoginRequiredMixin, CreateView):
     return super().form_valid(form)
 
 @login_required
-def add_photo(request, post_id):
-    photo_file = request.FILES.get('photo-file', None)
-    if photo_file:
-        s3 = boto3.client('s3')
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        try:
-            bucket = os.environ['S3_BUCKET']
-            s3.upload_fileobj(photo_file, bucket, key)
-            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-            Photo.objects.create(url=url, post_id=post_id)
-        except Exception as e:
-            print('An error occurred uploading file to S3')
-            print(e)
-    return redirect('post_detail', post_id=post_id)
+
+def post_form(request):
+  return render(request, 'post/post_form.html')
+
+def post_create(request):
+    if request.user.is_authenticated:
+      photo_file = request.FILES.get('photo-file', None)
+      if photo_file:
+          s3 = boto3.client('s3')
+          key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+          try:
+              bucket = os.environ['S3_BUCKET']
+              s3.upload_fileobj(photo_file, bucket, key)
+              url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+              post = Post.objects.create(url= url, caption = request.POST.get('caption'), user=request.user)
+              print(post)
+              post.save()
+              return redirect('post_detail', post.id)
+          except Exception as e:
+              print('An error occurred uploading file to S3')
+              print(e)
+    else:
+      pass
+    return redirect('post_index',)
+
+# class PostCreate(CreateView):
+#   model = Post
+#   fields = ['caption']
+#   def form_valid(self, form):
+#     form.instance.user = self.request.user
+#     return super().form_valid(form)
 
 def post_index(request):
   posts = Post.objects.all()
@@ -68,13 +85,6 @@ def post_detail(request, post_id):
   post = Post.objects.get(id=post_id)
   comment_form = CommentForm()
   return render(request, 'post/detail.html', {'post': post, 'comment_form':comment_form})
-
-class PostCreate(CreateView):
-  model = Post
-  fields = ['caption']
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
 
 class PostUpdate(UpdateView):
   model = Post
@@ -150,4 +160,3 @@ def following_index(request):
       followed_user_posts.extend(posts)
     print(f'👾{followed_user_posts}')
     return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
-  
