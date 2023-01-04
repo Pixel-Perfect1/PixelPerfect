@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Profile, Post, Like, Comment, Follow
+from .models import Profile, Post, Like, Follow
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CommentForm, PostForm
+from .forms import CommentForm
 import uuid
 import boto3
 import os
@@ -69,13 +68,6 @@ def post_create(request):
     else:
       pass
     return redirect('post_index',)
-
-# class PostCreate(CreateView):
-#   model = Post
-#   fields = ['caption']
-#   def form_valid(self, form):
-#     form.instance.user = self.request.user
-#     return super().form_valid(form)
 
 def post_index(request):
   posts = Post.objects.all()
