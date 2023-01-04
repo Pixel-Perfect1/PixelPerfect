@@ -4,12 +4,19 @@
 <h1>Create Post</h1>
 {% endif %}
 <!-- Leaving the action empty makes the form post to the same url used to display it -->
-<form action="" method="post">
+<form action="{%url 'post_create' %}" 
+enctype="multipart/form-data"
+method="POST"
+alt="Post Photo"
+class="card-panel"
+>
   <!-- Django requires the following for security purposes -->
   {% csrf_token %}
   <table>
     <!-- Render the inputs inside of <tr>s & <td>s -->
-    {{ form.as_table }}
+      <input type="text" name="caption" maxlength="600" required="" id="id_caption">
+      <input type="file" name="photo-file" />
+      {% comment %} <input type="text" name="url" maxlength="200" required="" id="id_url"> {% endcomment %}
   </table>
   <br />
   <input type="submit" value="Submit!" class="btn" />
