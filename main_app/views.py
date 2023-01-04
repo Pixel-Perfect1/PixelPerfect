@@ -84,6 +84,7 @@ def post_index(request):
 def post_detail(request, post_id):
   post = Post.objects.get(id=post_id)
   comment_form = CommentForm()
+
   return render(request, 'post/detail.html', {'post': post, 'comment_form':comment_form})
 
 class PostUpdate(UpdateView):
@@ -131,12 +132,13 @@ def add_comment(request, post_id):
 def profile(request, user_id):
   user = request.user
   profile = Profile.objects.get(id=user_id)
+  posts = Post.objects.filter(user=profile.user)
   if Follow.objects.filter(follower = user, following = profile.user).exists():
     button_text = 'Unfollow'
   else:
     button_text = 'Follow'
 
-  return render(request, 'profile/index.html', {'profile': profile, 'button_text':button_text})
+  return render(request, 'profile/index.html', {'profile': profile, 'button_text':button_text, 'posts':posts})
 
 def follow(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -160,3 +162,9 @@ def following_index(request):
       followed_user_posts.extend(posts)
     print(f'👾{followed_user_posts}')
     return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
+  
+def user_profile(request):
+  user = request.user
+  posts = Post.objects.filter(user=user)
+  print(f'👾{user}')
+  return render(request, 'profile/user_index.html', {'posts':posts})

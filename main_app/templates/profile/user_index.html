@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+<h1>{{user.profile}}</h1>
+<h5>Followers: {{ user.followers.count }}</h5><br>
+<h5>Following: {{ user.following.count }}</h5>
+
+<hr />
+{%for post in posts%}
+{%if post.photo.url%}
+<a href=" {% url 'post_detail' post.id%}">
+  <div class="profile-post">
+    <img class="responsive-img" src="{{post.photo.url}}" />
+  </div>
+</a>
+{%endif%}
+</div>
+{%endfor%}
+<p>Pictures will show up here</p>
+{% endblock %}
