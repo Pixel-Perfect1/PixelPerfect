@@ -31,11 +31,19 @@
             </li>
           </ul>
           <ul>
+            {%if user.is_authenticated%}
             <li>
               <a href="/" class="right brand-logo"
                 >&nbsp;&nbsp;{{user.profile.username}}</a
               >
             </li>
+            {%else%}
+            <li>
+              <a href="{%url 'about'%}" class="right brand-logo"
+                >&nbsp;&nbsp;About</a
+              >
+            </li>
+            {%endif%}
           </ul>
         </div>
       </nav>

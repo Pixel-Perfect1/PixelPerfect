@@ -122,12 +122,13 @@ def add_comment(request, post_id):
 def profile(request, user_id):
   user = request.user
   profile = Profile.objects.get(id=user_id)
+  posts = Post.objects.filter(user=profile.user)
   if Follow.objects.filter(follower = user, following = profile.user).exists():
     button_text = 'Unfollow'
   else:
     button_text = 'Follow'
 
-  return render(request, 'profile/index.html', {'profile': profile, 'button_text':button_text})
+  return render(request, 'profile/index.html', {'profile': profile, 'button_text':button_text, 'posts':posts})
 
 def follow(request, user_id):
     user = get_object_or_404(User, id=user_id)
