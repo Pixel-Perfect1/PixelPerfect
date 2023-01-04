@@ -14,10 +14,10 @@
 
 <hr />
 {%for post in posts%}
-{%if post.photo.url%}
+{%if post.url%}
 <a href=" {% url 'post_detail' post.id%}">
   <div class="profile-post">
-    <img class="responsive-img" src="{{post.photo.url}}" />
+    <img class="responsive-img" src="{{post.url}}" />
   </div>
 </a>
 {%endif%}
