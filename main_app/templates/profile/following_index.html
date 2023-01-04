@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Following</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for following in followings%}
+    <tr>
+      <td>{{following.following}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

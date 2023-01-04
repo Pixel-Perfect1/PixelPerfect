@@ -1,9 +1,20 @@
 {% extends 'base.html' %} {% block content %} {% load static %}
+<div class="card-content">
+<div class="profile-pic">
+<img class="responsive-img profile-pic" src="{{user.profile.avatar}}" />
+</div>
+<h1 class="center">{{user.profile}}</h1>
 
-<h1>{{user.profile}}</h1>
-<h5>Followers: {{ user.followers.count }}</h5><br>
-<h5>Following: {{ user.following.count }}</h5>
-
+<div class="card-action center">
+  <a href="{% url 'followers_index' user.id %}">
+    <h5>Followers: {{ user.followers.count }}</h5>
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="{% url 'following_index' user.id %}">
+    <h5>Following: {{ user.following.count }}</h5>
+  </a>
+</div>
+</div>
 <hr />
 {%for post in posts%}
 {%if post.url%}
