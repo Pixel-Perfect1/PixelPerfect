@@ -10,10 +10,12 @@
 <p class="center">{{profile.bio}}</p>
 {%endif%}
 <div class="card-action center">
+  {%if not user == profile.user %}
     <form method="post" action="{% url 'follow' profile.user.id %}">
     {% csrf_token %}
     <button type="submit">{{button_text}}</button>
     </form>
+  {%endif%}
     <br>
     <a href="{% url 'followers_index' profile.user.id %}">
       <h5>Followers: {{ profile.user.followers.count }}</h5>
