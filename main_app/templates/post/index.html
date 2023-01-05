@@ -23,8 +23,7 @@
   </div>
   {% if user.is_authenticated %}
   <div class="card-action">
-    {% if user not in post.likes.all %} {% comment %} {% if
-    post.likes.all|filter:user=user,post=post|exists %} {% endcomment %}
+    {% if user not in post.likes.all %}
     <a href="{% url 'like_post' post.id%}">Like</a>
     {%else%}
     <a href="{% url 'like_post' post.id%}">Unlike</a>
