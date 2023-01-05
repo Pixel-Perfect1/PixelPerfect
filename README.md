@@ -22,9 +22,14 @@ Django - Framework <br>
 PostgreSQL - Database <br>
 Materialize - Front-end framework <br>
 InkScape - Logo <br>
+Figma - Wireframe <br>
+Miro - ERD <br>
 Trello - https://trello.com/b/YrjuafoO/group-project-pixel-perfect
+
+## Screenshots
 
 ## Next Steps/Further Implementation
 
 1. Add notifications when a user likes or comments on your photo
 2. Create albums where you a user can post multiple photos per post
+3. Chat implementation
