@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %} {% if object %}
+<h1>Edit <span class="teal-text">{{object.caption}}</span></h1>
+{% else %}
+<h1>Create Post</h1>
+{% endif %}
+<!-- Leaving the action empty makes the form post to the same url used to display it -->
+<form
+  action="{%url 'post_create' %}"
+  enctype="multipart/form-data"
+  method="POST"
+  alt="Post Photo"
+  class="card-panel"
+>
+  <!-- Django requires the following for security purposes -->
+  {% csrf_token %}
+  <table>
+    <!-- Render the inputs inside of <tr>s & <td>s -->
+    <label>Caption</label>
+    <input
+      type="text"
+      name="caption"
+      maxlength="600"
+      required=""
+      id="id_caption"
+    />
+    <br /><br />
+    <label>Upload Photo</label>
+    <br /><br />
+    <input type="file" name="photo-file" />
+  </table>
+  <br />
+  <input type="submit" value="Submit!" class="btn" />
+</form>
+{% endblock %}

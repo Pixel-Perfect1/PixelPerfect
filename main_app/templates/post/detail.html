@@ -1,0 +1,73 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Post Details</h1>
+
+{% comment %}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+</div>
+<div class="card-action">
+  <a href="{% url 'post_update' post.id %}">Edit</a>
+  <a href="{% url 'post_delete' post.id %}">Delete</a>
+</div>
+{% endcomment %} {%if post.url %}
+<div class="card">
+  <div class="card-action">
+    <a href="{% url 'profile' post.user.profile.id %}"
+      >{{post.user.profile.username}}</a
+    >
+  </div>
+  <div class="card-content">
+    <img class="responsive-img card-panel" src="{{post.url}}" />
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+  {% if user.is_authenticated %} {% if user.id == post.user.id %}
+  <div class="card-action">
+    <a href="{% url 'post_update' post.id %}">Edit</a>
+    <a href="{% url 'post_delete' post.id %}">Delete</a>
+  </div>
+  {% endif %} {% endif %}
+</div>
+
+{%else%}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+  {% if user.is_authenticated %} {% if user.id == post.user.id %}
+  <div class="card-action">
+    <a href="{% url 'post_update' post.id %}">Edit</a>
+    <a href="{% url 'post_delete' post.id %}">Delete</a>
+  </div>
+  {% endif %} {% endif %}
+</div>
+{% endif %}
+
+<form action="{% url 'add_comment' post.id %}" method="POST">
+  {% csrf_token %} {{ comment_form.as_p }}
+  <input type="submit" class="btn" value="Add Comment" />
+</form>
+
+<table class="striped">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for comment in post.comments.all %}
+    <tr>
+      <td>{{comment.user}}</td>
+      <td>{{comment.content}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  M.textareaAutoResize(document.querySelector("id_content"));
+</script>
+{% endblock %}

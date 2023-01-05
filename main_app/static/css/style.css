@@ -1,15 +1,86 @@
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-  
-  main {
-    flex: 1 0 auto;
-  }
-  
-  footer.page-footer {
-    padding-top: 0;
-    text-align: right;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.container {
+  margin-bottom: 60px;
+}
+
+h5 {
+  display: inline;
+}
+
+footer.page-footer {
+  padding-top: 0;
+
+}
+
+.navbar-fixed nav {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.footer-fixed footer {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.footer-fixed {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.justify {
+  text-align: center;
+  display: table;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.add {
+  width: 10vw;
+}
+
+.profile-post {
+  display: inline-block;
+  max-width: 30%;
+  max-height: 30%;
+  align-items: center;
+  margin: 1%;
+  vertical-align: middle;
+}
+
+.profile-pic {
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  min-width: 30vw;
+  min-height: 30vw;
+  max-width: 30vw;
+  max-height: 30vw;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.logo {
+  object-fit: cover;
+  max-width: 30%;
+  min-width: 30%;
+  vertical-align: middle;
+}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}
+<h3>Following Posts</h3>
+{% for post in posts %}
+<div class="card">
+  <div class="card-action">
+    <a href="{% url 'profile' post.user.profile.id %}"
+      >{{post.user.profile.username}}</a
+    >
+  </div>
+  <div class="card-content">
+    <img class="responsive-img card-panel" src="{{post.url}}" />
+    <span class="card-title">{{ post.caption }}</span>
+  </div>
+
+  <div class="card-action">
+    {% if post.likes.count > 1 %}
+    <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Likes</a>
+    {% else %}
+    <a href="{% url 'like_index' post.id%}">{{post.likes.count}} Like</a>
+    {% endif %}
+  </div>
+  {% if user.is_authenticated %}
+  <div class="card-action">
+    <a href="{% url 'like_post' post.id%}">Like</a>
+    <a href=" {% url 'comment_index' post.id%}">Comment</a>
+    <a href=" {% url 'post_detail' post.id%}">Details</a>
+  </div>
+  {%endif%}
+</div>
+{%endfor%}{% endblock %}

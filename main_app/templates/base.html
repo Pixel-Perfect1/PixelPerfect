@@ -16,33 +16,97 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <header class="navbar-fixed">
       <nav>
-        <div class="nav-wrapper orange">
-          <ul>
+        <div class="nav-wrapper teal lighten-1">
+          <ul class="brand-logo left logo">
             <li>
-              <a href="/" class="left brand-logo">&nbsp;&nbsp;Pixel Perfect</a>
+              <a href="{%url 'about'%}">
+                <img
+                  class="logo"
+                  src="https://i.imgur.com/Wn9fT1L.png"
+                  alt="Pixel Perfect"
+                />
+              </a>
             </li>
           </ul>
-          <ul class="right">
-            <li><a href="{% url 'about' %}">About</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-            {% else %}
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            <li><a href="{% url 'login' %}">Log In</a></li>
-            {% endif %}
+          <ul>
+            {%if user.is_authenticated%}
+            <li>
+              <a href="/" class="right brand-logo"
+                >&nbsp;&nbsp;{{user.profile.username}}</a
+              >
+            </li>
+            {%else%}
+            <li>
+              <a href="{%url 'about'%}" class="right brand-logo"
+                >&nbsp;&nbsp;About</a
+              >
+            </li>
+            {%endif%}
           </ul>
         </div>
       </nav>
     </header>
+
     <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer orange">
-      <div class="right">
-        All Rights Reserved, &copy; 2022 PixelPerfect &nbsp;
-      </div>
-    </footer>
+
+    <div class="footer-fixed">
+      <footer class="teal lighten-1">
+        <nav class="z-depth-0">
+          <div class="nav-wrapper teal lighten-1">
+            <ul class="justify">
+              {% if user.is_authenticated %}
+              <li>
+                <a href="{% url 'user_profile' %}"
+                  ><i class="material-icons">account_circle</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'post_index' %}"
+                  ><i class="material-icons">public</i></a
+                >
+              </li>
+              <li>
+                <a
+                  class="btn-floating btn-large waves-effect waves-light orange"
+                  href="{% url 'post_form' %}"
+                  ><i class="material-icons add">add_circle_outline</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'following_post_index'%}"
+                  ><i class="material-icons">people</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'logout' %}"
+                  ><i class="material-icons">logout</i></a
+                >
+              </li>
+
+              {% else %}
+              <li>
+                <a href="{% url 'login' %}"
+                  ><i class="material-icons add">login</i></a
+                >
+              </li>
+              <li>
+                <a href="{% url 'signup' %}"
+                  ><i class="material-icons">person_add_alt</i></a
+                >
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </footer>
+    </div>
   </body>
 </html>

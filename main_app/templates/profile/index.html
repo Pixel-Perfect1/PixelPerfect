@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block content %}
+{% load static %}
+
+<div class="profile-pic">
+<img class="responsive-img profile-pic" src="{{profile.avatar}}" alt="Avatar" />
+</div>
+
+<h2 class="center">{{profile}}</h2>
+{%if profile.bio%}
+<p class="center">{{profile.bio}}</p>
+{%endif%}
+<div class="card-action center">
+  {%if not user == profile.user %}
+    <form method="post" action="{% url 'follow' profile.user.id %}">
+    {% csrf_token %}
+    <button class="btn-small waves-effect waves-light" type="submit">{{button_text}}</button>
+    </form>
+  {%endif%}
+    <br>
+    <a href="{% url 'followers_index' profile.user.id %}">
+      <h5>Followers: {{ profile.user.followers.count }}</h5>
+    </a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="{% url 'following_index' profile.user.id %}">
+      <h5>Following: {{ profile.user.following.count }}</h5>
+    </a>
+  </div>
+
+<hr />
+{%for post in posts%}
+{%if post.url%}
+<a href=" {% url 'post_detail' post.id%}">
+  <div class="profile-post">
+    <img class="responsive-img" src="{{post.url}}" />
+  </div>
+</a>
+{%endif%}
+</div>
+{%endfor%}
+{% endblock %} 

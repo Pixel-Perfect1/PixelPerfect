@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div class="card-content">
+<div class="profile-pic">
+<img class="responsive-img profile-pic" src="{{user.profile.avatar}}" alt="Avatar" />
+</div>
+<h2 class="center">{{user.profile}}</h2>
+{%if user.profile.bio%}
+<p class="center">{{user.profile.bio}}</p>
+{%endif%}
+
+
+<div class="card-action center">
+  <a href="{% url 'followers_index' user.id %}">
+    <h5>Followers: {{ user.followers.count }}</h5>
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="{% url 'following_index' user.id %}">
+    <h5>Following: {{ user.following.count }}</h5>
+  </a>
+</div>
+<br>
+<div class="card-action center">
+  <a class="btn-small waves-effect waves-light" href="{% url 'update_profile' user.profile.id %}">Edit Profile</a>
+</div>
+</div>
+<hr />
+{%for post in posts%}
+{%if post.url%}
+<a href=" {% url 'post_detail' post.id%}">
+  <div class="profile-post">
+    <img class="responsive-img" src="{{post.url}}" />
+  </div>
+</a>
+{%endif%}
+</div>
+{%endfor%}
+{% endblock %}
