@@ -12,8 +12,8 @@ With Pixel Perfect, you can share your photos and connect with friends and follo
 Python - Functionality <br>
 Django - Framework <br>
 PostgreSQL - Database <br>
-Materialize - Front-end framework
-InkScape - Logo
+Materialize - Front-end framework <br>
+InkScape - Logo <br>
 Trello - https://trello.com/b/YrjuafoO/group-project-pixel-perfect
 
 ## Next Steps/Further Implementation
