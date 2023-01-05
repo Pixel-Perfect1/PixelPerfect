@@ -28,6 +28,34 @@ Trello - https://trello.com/b/YrjuafoO/group-project-pixel-perfect
 
 ## Screenshots
 
+### About us
+
+![aboutus](./main_app/static/images/aboutus.png)
+
+### Login
+
+![login](./main_app/static/images/login.png)
+
+### Profile Index
+
+![profileindex](./main_app/static/images/profileindex.png)
+
+### User Profile Index
+
+![userprofileindex](./main_app/static/images/userprofileindex.png)
+
+### Public Post
+
+![publicpost](./main_app/static/images/publicpost.png)
+
+### Following Post
+
+![followingpost](./main_app/static/images/followingpost.png)
+
+### Create Post
+
+![createpost](./main_app/static/images/createpost.png)
+
 ## Next Steps/Further Implementation
 
 1. Add notifications when a user likes or comments on your photo
