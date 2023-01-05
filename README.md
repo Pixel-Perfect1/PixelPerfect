@@ -50,7 +50,7 @@ Trello - https://trello.com/b/YrjuafoO/group-project-pixel-perfect
 
 ### Following Post
 
-![followingpost](./main_app/static/images/followingpost.png)
+![followingpost](./main_app/static/images/followingposts.png)
 
 ### Create Post
 
