@@ -14,7 +14,7 @@ class Profile(models.Model):
         return self.username
 
     def get_absolute_url(self): 
-        return reverse('home')
+        return reverse('user_profile')
 
 class Post(models.Model):
     caption = models.CharField(max_length=600)
