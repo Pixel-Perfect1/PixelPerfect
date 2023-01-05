@@ -35,16 +35,18 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-
-class create_profile(LoginRequiredMixin, CreateView):
+class CreateProfile(LoginRequiredMixin, CreateView):
   model = Profile
   fields = ['username', 'name', 'avatar', 'age', 'bio']
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
 
-@login_required
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
+  model = Profile
+  fields = ['avatar', 'username', 'bio']
 
+@login_required
 def post_form(request):
   return render(request, 'post/post_form.html')
 

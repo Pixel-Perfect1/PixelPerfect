@@ -2,10 +2,10 @@
 {% load static %}
 
 <div class="profile-pic">
-<img class="responsive-img profile-pic" src="{{profile.avatar}}" />
+<img class="responsive-img profile-pic" src="{{profile.avatar}}" alt="Avatar" />
 </div>
 
-<h1 class="center">{{profile}}</h1>
+<h2 class="center">{{profile}}</h2>
 {%if profile.bio%}
 <p class="center">{{profile.bio}}</p>
 {%endif%}
