@@ -1,1 +1,1 @@
-web: gunicorn.pixelperfect.wsgi
+web: gunicorn pixelperfect.wsgi
