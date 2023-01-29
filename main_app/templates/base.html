@@ -93,6 +93,11 @@
 
               {% else %}
               <li>
+                <a href="{% url 'post_index' %}"
+                  ><i class="material-icons">public</i></a
+                >
+              </li>
+              <li>
                 <a href="{% url 'login' %}"
                   ><i class="material-icons add">login</i></a
                 >

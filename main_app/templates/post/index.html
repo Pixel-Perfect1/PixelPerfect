@@ -3,9 +3,13 @@
 {% for post in posts %}
 <div class="card">
   <div class="card-action">
+    {%if user.is_authenticated%}
     <a href="{% url 'profile' post.user.profile.id %}"
       >{{post.user.profile.username}}</a
     >
+    {%else%}
+    <p class="teal-text"><strong>{{post.user.profile.username}}</strong></p>
+    {%endif%}
   </div>
   <div class="card-content">
     <div style="text-align: center">
