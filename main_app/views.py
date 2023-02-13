@@ -94,10 +94,8 @@ def like_post(request, post_id):
   like, created = Like.objects.get_or_create(user=request.user)
   if post in like.post.all():
     like.post.remove(post)
-    print('🪲remove')
   else:
     like.post.add(post)
-    print('🪲add')
   return redirect('post_index')
 
 def like_index(request, post_id):
@@ -136,7 +134,6 @@ def profile(request, user_id):
 
 def follow(request, user_id):
     user = get_object_or_404(User, id=user_id)
-    print(f'🪲{user}')
     if request.method == 'POST':
         follow_obj = Follow.objects.filter(follower=request.user, following=user)
         if follow_obj.exists():
@@ -154,19 +151,16 @@ def following_post_index(request):
     for followed_user in followed_users:
       posts = Post.objects.filter(user=followed_user.following_id).order_by('date')
       followed_user_posts.extend(posts)
-    print(f'👾{followed_user_posts}')
     return render(request, 'post/followed_post.html', {'posts': followed_user_posts})
   
 def user_profile(request):
   user = request.user
   posts = Post.objects.filter(user=user)
-  print(f'👾{user}')
   return render(request, 'profile/user_index.html', {'posts':posts})
 
 def following_index (request, user_id):
   user = user_id
   followings = Follow.objects.filter(follower=user)
-  print(f'🪲{followings}')
   return render(request, 'profile/following_index.html', {'followings':followings})
 
 def followers_index (request, user_id):
